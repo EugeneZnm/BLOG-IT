@@ -5,6 +5,62 @@
     <title>Title</title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{{url_for('main.index')}}">PITCHES</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.index')}}">HOME <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.pitch')}}">NEW PITCH<span class="sr-only">(current)</span></a>
+          </li>&nbsp;&nbsp;&nbsp;&nbsp;
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.promote')}}">PROMOTIONAL<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.religious')}}">RELIGIOUS<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.product')}}">PRODUCT<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.motivational')}}">MOTIVATIONAL<span class="sr-only">(current)</span></a>
+          </li>
+          <!--<li class="nav-item">-->
+            <!--<a class="nav-link" href="#">Link</a>-->
+          <!--</li>-->
+          <!--<li class="nav-item dropdown">-->
+            <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+              <!--Dropdown-->
+            <!--</a>-->
+            <!--&lt;!&ndash;<div class="dropdown-menu" aria-labelledby="navbarDropdown">&ndash;&gt;-->
+              <!--&lt;!&ndash;<a class="dropdown-item" href="#">Action</a>&ndash;&gt;-->
+              <!--&lt;!&ndash;<a class="dropdown-item" href="#">Another action</a>&ndash;&gt;-->
+              <!--&lt;!&ndash;<div class="dropdown-divider"></div>&ndash;&gt;-->
+              <!--&lt;!&ndash;<a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--</li>-->
+        </ul>
+
+        <!--Sing Up and Sing In-->
+        <ul class="nav navbar-nav navbar-right">
+          {% if current_user.is_authenticated %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
+            &nbsp;
+          <li class="nav-item active"><a class="nav-link" href="{{url_for('auth.logout')}}">Sign Out</a></li>
+          {% else %}
+          &nbsp;
+          <li class="nav-item active"><a class="nav-link" href="{{url_for('auth.login')}}">Sing In</a></li>
+          {%endif%}
+        </ul>
+      </div>
+    </nav>
 
 </body>
 </html>
