@@ -73,6 +73,14 @@ class Post(db.Model):
         post = Post.query.filter_by(category=category).all()
         return post
 
+    def delete_post(self):
+        """
+        method to delete comments
+
+        """
+        db.session.remove(self)
+        db.session.commit()
+
     def __repr__(self):
         return f'User {self.category}'
 
@@ -104,13 +112,12 @@ class Comments(db.Model):
         comments = Comments.query.filter_by(comment=id).all()
         return comments
 
-    @classmethod
-    def delete_comments(cls, id):
+    def delete_comments(self):
         """
         method to delete comments
 
         """
-        db.session.remove()
+        db.session.remove(self)
         db.session.commit()
 
     def __repr__(self):
