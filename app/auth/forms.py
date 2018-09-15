@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 
 # inportation of input fields from
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField, RadioField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, TextAreaField
 
 # importation of validators
 from wtforms.validators import Required, Email, EqualTo

@@ -2,14 +2,13 @@ from flask_wtf import FlaskForm
 
 from wtforms import StringField, TextAreaField, SubmitField, RadioField, TextField
 
-from wtforms.validators import Required
-
 
 class CommentForm(FlaskForm):
     """
     class to create comment form
     """
-    saying = TextAreaField('Write your comment')
+    name = StringField('Your Name')
+    comment = TextAreaField('Write your comment')
     submit = SubmitField('Submit')
 
 
