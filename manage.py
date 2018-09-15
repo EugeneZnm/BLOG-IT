@@ -1,5 +1,6 @@
 from app import create_app, db
 from flask_script import Manager, Server
+from app.models import Writer
 from flask_migrate import Migrate, MigrateCommand
 
 # Creating app instance
@@ -27,4 +28,4 @@ def make_shell_context():
     shell context function allowing passing of properties into our shell
     :return:
     """
-    return dict(app=app, db=db, User=User,)
+    return dict(app=app, db=db, Writer=Writer,)

@@ -44,5 +44,33 @@ class Writer(UserMixin, db.Model):
         return f'Writer {self.username}'
 
 
+class Post(db.Model):
+    """
+    creating class for creating blog posts
+    """
+    __tablename__ = 'post'
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(255))
+    post = db.Column(db.String(290))
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def save_post(self):
+        """
+        method to save pitches
+        """
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_post(cls, category):
+        """
+        method to return pitches
+
+        """
+        post = Post.query.filter_by(category=category).all()
+        return post
+
+    def __repr__(self):
+        return f'User {self.category}'
 
 
