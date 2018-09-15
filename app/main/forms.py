@@ -10,7 +10,7 @@ class CommentForm(FlaskForm):
     class to create comment form
     """
     name = StringField('Your Name')
-    comment = TextAreaField('Write your comment')
+    comment = TextField('Write your comment')
     submit = SubmitField('Submit')
 
 
