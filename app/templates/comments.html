@@ -2,14 +2,14 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content%}
-
+<body style="background-color: #deddd9; ">
 <div class="container-fluid">
     {% for post in post %}
     <div class="card mb-3" style="background-color: #f4a460;">
         <div class="card-body">
             <div class="card-header">
                 <h2>Pitch: {{post.title}}</h2><br>
-                <h5 class="card subtitle">Created at:{{pitch.time}}</h5>
+                <h5 class="card subtitle">Created at:{{post.time}}</h5>
             </div>
             <div class="card-text">
                 <h5>Pitch: {{post.post}}</h5>
@@ -18,17 +18,20 @@
     </div>
     {% endfor %}
     <div>
-        <div class="container-fluid" style="width: 500px; background-color: #427274;">
+        {% for comm in comment_is %}
+        <div class="container-fluid card mb-2" style="width: 750px; background-color: #e4dcb3;">
+            <div class="card-body" style="">
+                <h5 class="card-header mb-1"style="width:700px; background-color: #C4B088; height: 50px;">By: {{comm.name}}</h5>
+                <h5 class="card-header"style="width:700px; background-color: #D8A765;">Comment: {{comm.comment}}</h5>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="container-fluid" style="width: 500px; background-color: #aaaa7c;">
             {{ wtf.quick_form(comment) }}
             {{simplemde.load}}
         </div>
-        {% for comm in comment_is %}
-        <div class="container-fluid card mb-2">
-            <h5 style="width:300px; height: 50px;">Comment: {{comm.name}}</h5>
-            <h5 style="width:300px; height: 50px;">Comment: {{comm.comment}}</h5>
-        </div>
-        {% endfor %}
     </div>
 </div>
 
 {% endblock %}
+</body>

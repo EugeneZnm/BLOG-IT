@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block content%}
+<div class="container-fluid">
+    {% for post in post %}
+  <div class="row">
+    <div class="col-sm-4">
+        <h3>{{post.post}}</h3>
+    </div>
+
+    <div class="col-sm-8">
+      {{format_post|safe}}
+    </div>
+  </div>
+    {% endfor %}
+</div>
+{%endblock%}

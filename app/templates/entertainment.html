@@ -8,10 +8,10 @@
         <div class="card-body">
             <div class="card-header">
                 <h2>Pitch: {{post.title}}</h2><br>
-                <h5 class="card subtitle">Created at:{{pitch.time}}</h5>
+                <h5 class="card subtitle">Created at:{{post.time}}</h5>
             </div>
             <div class="card-text">
-                <h5>Pitch: {{post.post | truncate 30}}</h5>
+                <h5>Pitch: {{post.post}}</h5>
             </div>
             <p><a href="/comments/{{post.id}}"><button class="btn btn-primary">Read More</button></a></p>
         </div>
