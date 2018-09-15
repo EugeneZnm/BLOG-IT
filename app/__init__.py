@@ -11,6 +11,12 @@ login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 
+# creation of instance of bootstrap
+bootstrap = Bootstrap()
+
+# instantiating sql-alchemy
+db = SQLAlchemy()
+
 def create_app(config_name):
     """
     application factory function
