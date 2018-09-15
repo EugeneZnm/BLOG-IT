@@ -13,10 +13,3 @@ class CommentForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-class Blog(FlaskForm):
-    """
-    class to create blog post form
-    """
-    pitch = TextAreaField('Pitch Goes Here')
-    category = RadioField('Categories', choices = [('lifestyle', 'lifestyle'),('Business', 'Business'),('Entertainment', 'Entertainment'), ('Motivational','Motivational')],validators=[Required()])
-    submit = SubmitField('Submit')

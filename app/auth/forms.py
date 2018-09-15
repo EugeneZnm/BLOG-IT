@@ -39,3 +39,22 @@ class RegistrationForm(FlaskForm):
         """
         if User.query.filter_by(username=data_field.data).first():
             raise ValidationError('Username is already Taken, try another one')
+
+
+class LoginForm(FlaskForm):
+    """
+    login form class to create login form
+    """
+    email = StringField('Email Address Here', validators=[Required(), Email()])
+    password = PasswordField('Password', validators=[Required()])
+    remember = BooleanField('Remember me') # render checkbox to remember password details
+    submit = SubmitField('Log In')
+
+
+class Blog(FlaskForm):
+    """
+    class to create blog post form
+    """
+    pitch = TextAreaField('Pitch Goes Here')
+    category = RadioField('Categories', choices = [('lifestyle', 'lifestyle'),('Business', 'Business'),('Entertainment', 'Entertainment'), ('Motivational','Motivational')],validators=[Required()])
+    submit = SubmitField('Submit')
