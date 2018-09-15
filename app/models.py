@@ -56,7 +56,7 @@ class Post(db.Model):
 
     def save_post(self):
         """
-        method to save pitches
+        method to save blog posts
         """
         db.session.add(self)
         db.session.commit()
@@ -64,7 +64,7 @@ class Post(db.Model):
     @classmethod
     def get_post(cls, category):
         """
-        method to return pitches
+        method to return posts
 
         """
         post = Post.query.filter_by(category=category).all()
@@ -74,3 +74,12 @@ class Post(db.Model):
         return f'User {self.category}'
 
 
+class Comments(db.Model):
+    """
+    class Comments to create table for comments
+
+    """
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key = True)
+    saying = db.Column(db.String(267))
+    time = db.Column(db.DateTime, default=datetime.utcnow)
