@@ -81,5 +81,24 @@ class Comments(db.Model):
     """
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key = True)
-    saying = db.Column(db.String(267))
+    comment = db.Column(db.String(267))
     time = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def save_comments(self):
+        """
+        method to save comments
+        """
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls, id):
+        """
+        method to return comments
+        """
+        comments = Comments.query.filter_by(comment=id).all()
+        return comments
+
+    def __repr__(self):
+
+        return f'User {self.comment}'
