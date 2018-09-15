@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_simplemde import SimpleMDE
+from flask_mail import Mail
 
 # creation of instance of login
 login_manager = LoginManager()
@@ -18,8 +19,10 @@ bootstrap = Bootstrap()
 db = SQLAlchemy()
 
 # instantiating simpleMde
-simple =SimpleMDE()
+simple = SimpleMDE()
 
+# instantiating flask mail
+mail = Mail()
 
 def create_app(config_name):
     """
