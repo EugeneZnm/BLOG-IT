@@ -2,11 +2,11 @@ from flask_login import login_required, current_user
 
 from flask import render_template, redirect, request, url_for, abort
 
-from ..models import Post
+from ..models import Post, Comments
 
 from . import main
 
-from .forms import BlogForm
+from .forms import BlogForm, CommentForm
 
 # import photos instance
 from .. import db
@@ -38,3 +38,21 @@ def post():
         return redirect(url_for('main.index'))
 
     return render_template('new-pitch.html',post=posts)
+
+
+# display comments
+@main.route('/comments/<int:id>', methods = ['GET', 'POST'])
+def comments(id):
+    """
+    show comments
+    """
+    comment = CommentForm()
+    comment_is = Comments.query.filter_by(pitch_id=id)
+    if comment.validate_on_submit():
+
+        comments = Comments(saying=comment.saying.data,pitch_id=id, user_id=current_user.id )
+        comments.save_comments()
+        comment_is= Comments.query.filter_by(pitch_id=id)
+        return render_template('comments.html', comment=comment, comment_is=comment_is)
+
+    return render_template('comments.html', comment=comment, comment_is=comment_is)
