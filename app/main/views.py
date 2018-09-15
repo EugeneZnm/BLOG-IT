@@ -42,7 +42,7 @@ def post():
 
 # Blog post categories
 @main.route('/Lifestyle', methods = ['GET', 'POST'])
-def promote():
+def lifestyle():
     """
     displaying lifestyle blog post
     """
@@ -52,7 +52,7 @@ def promote():
 
 
 @main.route('/Business', methods = ['GET', 'POST'])
-def product():
+def business():
     """
     show business posts
     """
