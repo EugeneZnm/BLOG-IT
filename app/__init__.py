@@ -1,8 +1,10 @@
-# initialising flask
-
+# importation of packages
 from flask import Flask
-
-app=Flask(__name__)
+from config import config_options
+from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
+from flask_login import LoginManager
+from flask_simplemde import SimpleMDE
 
 
 def create_app(config_name):
