@@ -26,10 +26,23 @@ class ProdConfig(Config):
     """
     production configuration child class
     """
+    pass
 
 class TestConfig(Config):
     """
     tests configuration class
     """
-SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://eugene:necromancer@localhost/pitches_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://eugene:necromancer@localhost/blog_test'
 
+
+class DevConfig(Config):
+    """
+    development configuration child class
+    """
+    DEBUG = True
+
+config_options={
+    'development': DevConfig,
+    'production': ProdConfig,
+    'test': TestConfig
+}
