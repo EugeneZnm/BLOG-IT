@@ -40,7 +40,7 @@ class Writer(UserMixin, db.Model):
         """
         return check_password_hash(self.pass_secure, password)
 
-    def  __repr__(self):
+    def __repr__(self):
         return f'Writer {self.username}'
 
 
@@ -51,7 +51,7 @@ class Post(db.Model):
     __tablename__ = 'post'
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(255))
-    post = db.Column(db.String(290))
+    post = db.Column(db.String(1000000))
     time = db.Column(db.DateTime, default=datetime.utcnow)
 
     def save_post(self):
@@ -80,7 +80,7 @@ class Comments(db.Model):
 
     """
     __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(267))
     time = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -100,5 +100,28 @@ class Comments(db.Model):
         return comments
 
     def __repr__(self):
-
         return f'User {self.comment}'
+
+
+class Subscriber(db.Model):
+    """
+    class subscriber to subscriber users
+    """
+    __tablename__ = 'subscribers'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255), index=True)
+    email = db.Column(db.String(255), unique=True, index=True)
+
+    def save_subscriber(self):
+        """
+        method to save subscriber
+        """
+        db.session.add(self)
+        db.session.commit()
+
+    def get_subscriber(self, username):
+        """
+        method to get subscriber
+        """
+        email = Subscriber.query.filter_by(email=username).all()
+        return email
