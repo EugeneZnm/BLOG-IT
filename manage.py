@@ -29,3 +29,10 @@ def make_shell_context():
     :return:
     """
     return dict(app=app, db=db, Writer=Writer, Post=Post, Comments=Comments, Subsciber=Subscriber)
+
+# initialise migrate class in app instance
+migrate = Migrate(app, db)
+manager.add_command('db', MigrateCommand)
+
+if __name__ == '__main__':
+    manager.run()
