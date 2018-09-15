@@ -17,6 +17,10 @@ bootstrap = Bootstrap()
 # instantiating sql-alchemy
 db = SQLAlchemy()
 
+# instantiating simpleMde
+simple =SimpleMDE()
+
+
 def create_app(config_name):
     """
     application factory function
