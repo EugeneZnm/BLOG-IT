@@ -24,6 +24,7 @@ simple = SimpleMDE()
 # instantiating flask mail
 mail = Mail()
 
+
 def create_app(config_name):
     """
     application factory function
