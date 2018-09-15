@@ -21,6 +21,8 @@ class Writer(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), index=True)
     email = db.Column(db.String(255), unique=True, index=True)
+    post = db.relationship('Post', backref='writer', lazy='dynamic')
+    comment = db.relationship('Comments', backref='user', lazy='dynamic')
     pass_secure = db.Column(db.String(255))
 
     # call  back function retrieving writer id
@@ -53,6 +55,7 @@ class Post(db.Model):
     category = db.Column(db.String(255))
     post = db.Column(db.String(1000000))
     time = db.Column(db.DateTime, default=datetime.utcnow)
+    writer_id = db.Column(db.Integer, db.ForeignKey('writers-.id'))
 
     def save_post(self):
         """
@@ -83,6 +86,8 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(267))
     time = db.Column(db.DateTime, default=datetime.utcnow)
+    writer_id = db.Column(db.Integer, db.ForeignKey('writers.id'))
+    post_id =db.Column(db.Integer, db.ForeignKey('post.id'))
 
     def save_comments(self):
         """
@@ -98,6 +103,15 @@ class Comments(db.Model):
         """
         comments = Comments.query.filter_by(comment=id).all()
         return comments
+
+    @classmethod
+    def delete_comments(cls, id):
+        """
+        method to delete comments
+
+        """
+        db.session.remove()
+        db.session.commit()
 
     def __repr__(self):
         return f'User {self.comment}'
