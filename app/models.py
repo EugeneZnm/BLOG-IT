@@ -28,7 +28,7 @@ class User(UserMixin, db.Model):
     # call  back function retrieving writer id
     @login_manager.user_loader
     def load_writer(user_id):
-        return user_id.query.get(int(user_id))
+        return User.query.get(int(user_id))
 
     def set_password(self, password):
         """
@@ -57,7 +57,7 @@ class Post(db.Model):
     post = db.Column(db.String(1000000))
     time = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    comment = db.relationship('Comments', backref='users', lazy='dynamic')
+    comment = db.relationship('Comments', backref='post', lazy='dynamic')
 
     def save_post(self):
         """

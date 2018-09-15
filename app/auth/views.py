@@ -43,7 +43,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
 
-        user = User(username=form.username.data, email=form.email.data, age=form.age.data)
+        user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -51,3 +51,15 @@ def register():
         title = "Welcome New User"
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', registration_form=form)
+
+
+# logout route to logout user from application
+@auth.route('/logout')
+@login_required
+def logout():
+    """
+    function to logout user
+    :return:
+    """
+    logout_user()
+    return redirect(url_for("main.index"))

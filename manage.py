@@ -12,6 +12,7 @@ manager =Manager(app)
 # command to launch application server
 manager.add_command('server', Server)
 
+
 @manager.command
 def test():
     """
@@ -21,6 +22,7 @@ def test():
     tests =unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
 
+
 # manager shell decorator to create shell context
 @manager.shell
 def make_shell_context():
@@ -29,6 +31,7 @@ def make_shell_context():
     :return:
     """
     return dict(app=app, db=db, User=User, Post=Post, Comments=Comments, Subsciber=Subscriber)
+
 
 # initialise migrate class in app instance
 migrate = Migrate(app, db)
