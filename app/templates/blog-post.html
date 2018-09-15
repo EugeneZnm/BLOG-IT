@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
+<body style="background-color: #baddde;">
+{% block content%}
 
+<div class="container-fluid">
+    <div class="container" style="width: 500px; background-color: #427274;">
+        {{ wtf.quick_form(post) }}
+        {{simplemde.load}}
+    </div>
+</div>
+
+{% endblock %}
 </body>
-</html>
