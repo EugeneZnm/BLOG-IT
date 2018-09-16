@@ -117,9 +117,6 @@ def subscriber():
     """
      function to subscribe readers to blog
     """
-    subscribers = Post.query.all()
-    post = Post.query.all()
-
     subscribed = SubscriptionForm()
 
     if subscribed.validate_on_submit():
@@ -129,8 +126,23 @@ def subscriber():
         db.session.commit()
         mail_message("Welcome To Codex ","email/welcome-subscriber",subscribed.email,subscriber=subscriber)
 
+        subscribers = Post.query.all()
+        post = Post.query.all()
+
         return redirect(url_for('main.index'))
 
     return render_template('subscribed.html',subscribed=subscribed, subscribers=subscribers, post=post)
 
 
+# deletion of blog post
+@main.route('/delete/<id>')
+@login_required
+def deletepost(id):
+
+    """
+     function to delete our blog post
+    """
+    post = Post.query.filter_by(id=id).first()
+
+    post.delete_post()
+    return redirect(url_for('main.index'))

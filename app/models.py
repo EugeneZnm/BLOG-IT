@@ -80,7 +80,7 @@ class Post(db.Model):
         method to delete comments
 
         """
-        db.session.remove(self)
+        db.session.delete(self)
         db.session.commit()
 
     def __repr__(self):

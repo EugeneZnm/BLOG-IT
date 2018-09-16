@@ -65,15 +65,3 @@ def logout():
     return redirect(url_for("main.index"))
 
 
-# deletion of blog post
-@auth.route('/delete/<id>')
-@login_required
-def deletepost(id):
-
-    """
-     function to delete our blog post
-    """
-    post = Post.query.filter_by(id=id).first()
-
-    post.delete_post()
-    return redirect(url_for('main.index'))
