@@ -4,5 +4,22 @@
     {% block content %}
 <body style="background-color: #f5f5dc;">
     <h2 style="text-align: center; font-weight: bold; text">MOMENT OF TRUTH</h2>
+
+       {% for post in all %}
+        <div style="display:inline-block; margin-left: 2em;">
+            <div class="card mb-2" style="width: 300px;">
+                <div class="card-body">
+                    <div class="card-header">
+                        <h3>{{post.header}}</h3><br>
+                        <h6 class="card-subtitle">Category:{{post.category}}</h6>
+                    </div>
+                    <div class="card-text">
+                        <h5>{{post.post}}</h5>
+                    </div>
+                </div>
+                <p style="text-align: center;"><a href="/comments/{{post.id}}"><button class="btn btn-primary">Read More</button></a></p>
+            </div>
+        </div>
+        {% endfor %}
 </body>
 {% endblock %}

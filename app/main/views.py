@@ -16,10 +16,9 @@ import markdown2
 
 @main.route('/')
 def index():
-
     title = 'MOMENT OF TRUTH'
     all = Post.query.all()
-    return render_template('index.html',all=all, title=title)
+    return render_template('index.html', all=all, title=title)
 
 
 # display blog and blog categories
@@ -32,14 +31,13 @@ def post():
     posts = BlogForm()
 
     if posts.validate_on_submit():
-
-        posted = Post(post=posts.post.data, category=posts.category.data, title=posts.title.data)
+        posted = Post(post=posts.post.data, category=posts.category.data, header=posts.header.data)
         posted.save_post()
         return redirect(url_for('main.index'))
 
-    # postit = Post.query.all()
+    postit = Post.query.all()
 
-    return render_template('blog-post.html',posts=posts, postit=postit)
+    return render_template('blog-post.html', posts=posts, postit=postit)
 
 
 # @main.route('/Post/<int:id>')
@@ -52,37 +50,37 @@ def post():
 
 
 # Blog post categories
-@main.route('/Lifestyle', methods = ['GET', 'POST'])
+@main.route('/Lifestyle', methods=['GET', 'POST'])
 def lifestyle():
     """
     displaying lifestyle blog post
     """
-    lifestyle =Post.query.filter_by(category="Lifestyle").all()
+    lifestyle = Post.query.filter_by(category="lifestyle").all()
 
-    return render_template('lifestyle.html', post =lifestyle)
+    return render_template('lifestyle.html', post=lifestyle)
 
 
-@main.route('/Business', methods = ['GET', 'POST'])
+@main.route('/Business', methods=['GET', 'POST'])
 def business():
     """
     show business posts
     """
-    business = Post.query.filter_by(category="business").all()
+    business = Post.query.filter_by(category="Business").all()
 
     return render_template('business.html', post=business)
 
 
-@main.route('/entertainment', methods = ['GET', 'POST'])
+@main.route('/entertainment', methods=['GET', 'POST'])
 def entertainment():
     """
      show entertainment posts
     """
-    entertainment = Post.query.filter_by(category="entertainment").all()
+    entertainment = Post.query.filter_by(category="Entertainment").all()
 
     return render_template('entertainment.html', post=entertainment)
 
 
-@main.route('/culture', methods = ['GET', 'POST'])
+@main.route('/culture', methods=['GET', 'POST'])
 def culture():
     """
     show culture posts
@@ -93,7 +91,7 @@ def culture():
 
 
 # display comments
-@main.route('/comments/<int:id>', methods = ['GET', 'POST'])
+@main.route('/comments/<int:id>', methods=['GET', 'POST'])
 def comments(id):
     """
     show comments
@@ -101,10 +99,9 @@ def comments(id):
     comment = CommentForm()
     comment_is = Comments.query.filter_by(post_id=id)
     if comment.validate_on_submit():
-
-        comments = Comments(comment=comment.comment.data,post_id=id)
+        comments = Comments(comment=comment.comment.data, post_id=id, name=comment.name.data)
         comments.save_comments()
-        comment_is= Comments.query.filter_by(post_id=id)
-        return render_template('comments.html', comment=comment, comment_is=comment_is)
 
-    return render_template('comments.html', comment=comment, comment_is=comment_is)
+    postit = Post.query.all()
+
+    return render_template('comments.html', comment=comment, comment_is=comment_is, postit=postit)

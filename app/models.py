@@ -53,7 +53,7 @@ class Post(db.Model):
     __tablename__ = 'post'
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(255))
-    title = db.Column(db.String(1000))
+    header = db.Column(db.String(1000))
     post = db.Column(db.String(1000000))
     time = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
