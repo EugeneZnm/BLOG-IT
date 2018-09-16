@@ -16,11 +16,21 @@ from .. import db
 import markdown2
 
 
-@main.route('/')
+@main.route('/', methods=['GET','POST'])
 def index():
     title = 'MOMENT OF TRUTH'
     all = Post.query.all()
-    return render_template('index.html', all=all, title=title)
+    subscribed = SubscriptionForm()
+    subscribers = Post.query.all()
+    if subscribed.validate_on_submit():
+
+        subscribers = Subscriber(email=subscribed.email.data,username = subscribed.username.data)
+        db.session.add(subscribers)
+        db.session.commit()
+        mail_message("Welcome To Codex ","email/welcome-subscriber",subscribed.email,subscribers=subscribers)
+
+        
+    return render_template('index.html', all=all, title=title, subscribed=subscribed, subscribers=subscribers)
 
 
 # display blog and blog categories
@@ -111,27 +121,27 @@ def comments(id):
     return render_template('comments.html', comment=comment, comment_is=comment_is, postit=postit)
 
 
-# reader subscription form
-@main.route('/subscribed', methods=['GET','POST'])
-def subscriber():
-    """
-     function to subscribe readers to blog
-    """
-    subscribed = SubscriptionForm()
+# # reader subscription form
+# @main.route('/subscribed', methods=['GET','POST'])
+# def subscriber():
+#     """
+#      function to subscribe readers to blog
+#     """
+#     subscribed = SubscriptionForm()
 
-    if subscribed.validate_on_submit():
+#     if subscribed.validate_on_submit():
 
-        subscribers = Subscriber(email=subscribed.email.data,username = subscribed.username.data)
-        db.session.add(subscribers)
-        db.session.commit()
-        mail_message("Welcome To Codex ","email/welcome-subscriber",subscribed.email,subscriber=subscriber)
+#         subscribers = Subscriber(email=subscribed.email.data,username = subscribed.username.data)
+#         db.session.add(subscribers)
+#         db.session.commit()
+#         mail_message("Welcome To Codex ","email/welcome-subscriber",subscribed.email,subscriber=subscriber)
 
-        subscribers = Post.query.all()
-        post = Post.query.all()
+#         subscribers = Post.query.all()
+#         post = Post.query.all()
 
-        return redirect(url_for('main.index'))
+#         return redirect(url_for('main.index'))
 
-    return render_template('subscribed.html',subscribed=subscribed, subscribers=subscribers, post=post)
+#     return render_template('subscribed.html',subscribed=subscribed, subscribers=subscribers, post=post)
 
 
 # deletion of blog post

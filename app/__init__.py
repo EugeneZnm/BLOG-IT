@@ -43,6 +43,10 @@ def create_app(config_name):
     # configure uploads set
     # configure_uploads(app, photos)
 
+    mail.init_app(app)
+    simple.init_app(app)
+    db.init_app(app)
+
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/authenticate')
 
@@ -53,8 +57,5 @@ def create_app(config_name):
     url_prefix adds prefix to all routes registered with blueprint
 
     """
-    mail.init_app(app)
-    simple.init_app(app)
-    db.init_app(app)
-
+    
     return app
