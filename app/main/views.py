@@ -1,25 +1,18 @@
-from flask_login import login_required, current_user
-
-from flask import render_template, redirect, request, url_for, abort
-
-from ..models import Post, Comments, Subscriber
+import markdown2
+from flask import abort, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
 
 from . import main
-
-from .forms import BlogForm, CommentForm, SubscriptionForm
-
-from ..email import mail_message
-
-# import photos instance
 from .. import db
-
-import markdown2
+from ..email import mail_message
+from ..models import Comments, Post, Subscriber
+from .forms import BlogForm, CommentForm, SubscriptionForm
 
 
 @main.route('/', methods=['GET','POST'])
 def index():
     title = 'MOMENT OF TRUTH'
-    all = Post.query.all()
+    all = Post.query.order_by(Post.id.desc()).all()
     subscribed = SubscriptionForm()
     subscribers = Post.query.all()
     if subscribed.validate_on_submit():
@@ -27,10 +20,13 @@ def index():
         subscribers = Subscriber(email=subscribed.email.data,username = subscribed.username.data)
         db.session.add(subscribers)
         db.session.commit()
-        mail_message("Welcome To Codex ","email/welcome-subscriber",subscribed.email,subscribers=subscribers)
+        mail_message("Welcome To Codex ","email/welcome-subscriber",subscribers.email,subscribers=subscribers)
 
-        
-    return render_template('index.html', all=all, title=title, subscribed=subscribed, subscribers=subscribers)
+    # search = BlogSearchForm(request.form)
+    # if request.method == 'POST':
+    #     return search_results(search)
+
+    return render_template('index.html', all=all, title=title, subscribed=subscribed, subscribers=subscribers, post=post)
 
 
 # display blog and blog categories
@@ -42,6 +38,7 @@ def post():
     """
     posts = BlogForm()
     postit = Post.query.all()
+    
     if posts.validate_on_submit():
         posted = Post(post=posts.post.data, category=posts.category.data, header=posts.header.data)
         posted.save_post()
@@ -52,16 +49,6 @@ def post():
         mail_message("New Blog Post from Codex ","email/postnotification",email.email,subscribers=subscribers)
     
     return render_template('blog-post.html', posts=posts, postit=postit)
-
-
-# @main.route('/Post/<int:id>')
-# def single_post(category):
-#     pot = Post.query.get(category)
-#     if pot is None:
-#         abort(404)
-#     format_post = markdown2.markdown(pot.post, extras=["code-friendly", "fenced-code-blocks"])
-#     return render_template('singleblog.html', post = pot, format_post=format_post)
-
 
 # Blog post categories
 @main.route('/Lifestyle', methods=['GET', 'POST'])
@@ -156,3 +143,26 @@ def deletepost(id):
 
     post.delete_post()
     return redirect(url_for('main.index'))
+
+# # search function
+# @app.route('/results')
+# def search_results(search):
+#     results=[]
+#     search_string = search.data['search']
+
+
+#     #  search for blog post
+#     if search.data['search'] == '':
+#         qry = db.session.query(Post)
+#         results = qry.all()
+
+#     # prompt results are found    
+#     if not results:
+#         flash('No Results Found')
+#         return redirect(url_for('main.index'))      
+    
+#     else:
+#         #display results
+#         table = Results(results)
+#         table.border = True
+#         return render_template('results.html', table=table)

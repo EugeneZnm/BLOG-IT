@@ -11,20 +11,32 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 375px;">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{url_for('main.lifestyle')}}">LIFESTYLE <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.business')}}">BUSINESS <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.entertainment')}}">ENTERTAINMENT <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.culture')}}">CULTURE<span class="sr-only">(current)</span></a>
           </li>
         </ul>
 
         <!--Sing Up and Sing In-->
         <ul class="nav navbar-nav navbar-right">
           {% if current_user.is_authenticated %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.post')}}">NEW POST <span class="sr-only">(current)</span></a>
+          </li>
           <li class="nav-item active"><a class="nav-link" href="{{url_for('auth.logout')}}">Sign Out</a></li>
           {% else %}
           &nbsp;
-          <li class="nav-item active"><a class="nav-link" href="{{url_for('auth.login')}}">Sing In</a></li>
+          <li class="nav-item active"><a class="nav-link" href="{{url_for('auth.login')}}">ADMIN</a></li>
           {%endif%}
         </ul>
       </div>

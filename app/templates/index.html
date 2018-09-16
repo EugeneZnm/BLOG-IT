@@ -7,22 +7,25 @@
        {% for post in all %}
         <div style="display:inline-block; margin-left: 2em;">
             <div class="card mb-2" style="width: 300px;">
-                <div class="card-body">
                     <div class="card-header">
-                        <h3>{{post.header}}</h3><br>
-                        <h6 class="card-subtitle">Category:{{post.category}}</h6>
+                        <span style="text-size: 50px; font-weight: 600;">{{post.header}}</span></br><br>
+                        <h6 class="card-subtitle">Category: {{post.category}}</h6>
+                    </div>
+                    <div class="card-body">
+                    <div class="card-text">
+                        <h5>{{post.post|truncate(150)}}</h5>
                     </div>
                     <div class="card-text">
-                        <h5>{{post.post}}</h5>
+                        <span style="text-size: 10px;"><em>Posted on:{{post.time}}</em></span>
                     </div>
-                </div>
+                    </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <p style="text-align: center;"><a href="/comments/{{post.id}}"><button class="btn btn-primary">Read More</button></a></p>
+                        <p style="text-align: center;"><a href="/comments/{{post.id}}"><button class="btn btn-success">Read More</button></a></p>
                     </div>
                     {% if current_user.is_authenticated %}
                     <div class="col-md-6">
-                        <p style="text-align: center;"><a href="/delete/{{post.id}}"><button class="btn btn-primary">Delete Post</button></a></p>
+                        <p style="text-align: center;"><a href="/delete/{{post.id}}"><button class="btn btn-danger">Delete Post</button></a></p>
                     </div>
                     {%endif%}
                 </div>
