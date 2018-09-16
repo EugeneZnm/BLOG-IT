@@ -76,5 +76,4 @@ def deletepost(id):
     post = Post.query.filter_by(id=id).first()
 
     post.delete_post()
-
     return redirect(url_for('main.index'))

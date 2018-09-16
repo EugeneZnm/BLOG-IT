@@ -16,7 +16,16 @@
                         <h5>{{post.post}}</h5>
                     </div>
                 </div>
-                <p style="text-align: center;"><a href="/comments/{{post.id}}"><button class="btn btn-primary">Read More</button></a></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p style="text-align: center;"><a href="/comments/{{post.id}}"><button class="btn btn-primary">Read More</button></a></p>
+                    </div>
+                    {% if current_user.is_authenticated %}
+                    <div class="col-md-6">
+                        <p style="text-align: center;"><a href="/delete/{{post.id}}"><button class="btn btn-primary">Delete Post</button></a></p>
+                    </div>
+                    {%endif%}
+                </div>
             </div>
         </div>
         {% endfor %}

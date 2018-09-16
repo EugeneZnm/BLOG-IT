@@ -117,15 +117,19 @@ def subscriber():
     """
      function to subscribe readers to blog
     """
+    subscribers = Post.query.all()
+    post = Post.query.all()
+
     subscribed = SubscriptionForm()
+
     if subscribed.validate_on_submit():
+
         subscribers = Subscriber(email=subscribed.email.data,username = subscribed.username.data)
         db.session.add(subscribers)
         db.session.commit()
         mail_message("Welcome To Codex ","email/welcome-subscriber",subscribed.email,subscriber=subscriber)
+
         return redirect(url_for('main.index'))
-    subscribers = Post.query.all()
-    post = Post.query.all()
 
     return render_template('subscribed.html',subscribed=subscribed, subscribers=subscribers, post=post)
 
