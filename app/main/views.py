@@ -2,11 +2,13 @@ from flask_login import login_required, current_user
 
 from flask import render_template, redirect, request, url_for, abort
 
-from ..models import Post, Comments
+from ..models import Post, Comments, Subscriber
 
 from . import main
 
-from .forms import BlogForm, CommentForm
+from .forms import BlogForm, CommentForm, SubscriptionForm
+
+from ..email import mail_message
 
 # import photos instance
 from .. import db
@@ -29,14 +31,16 @@ def post():
     function to display pitch form
     """
     posts = BlogForm()
-
+    postit = Post.query.all()
     if posts.validate_on_submit():
         posted = Post(post=posts.post.data, category=posts.category.data, header=posts.header.data)
         posted.save_post()
         return redirect(url_for('main.index'))
 
-    postit = Post.query.all()
-
+    subscribers = Subscriber.query.all()
+    for email in subscribers:
+        mail_message("Hey Welcome To My Blog ","email/welcome_post",email.email,subscribers=subscribers)
+    
     return render_template('blog-post.html', posts=posts, postit=postit)
 
 
@@ -105,3 +109,17 @@ def comments(id):
     postit = Post.query.all()
 
     return render_template('comments.html', comment=comment, comment_is=comment_is, postit=postit)
+
+
+# reader subscription
+@main.route('/', methods=['GET','POST'])
+def subscriber():
+    subscribed=SubscriptionForm()
+    if subscribed.validate_on_submit():
+        subscribers= Subscriber(email=subscribed.email.data,title = subscribed.title.data)
+        db.session.add(subscribers)
+        db.session.commit()
+        mail_message("Hey Welcome To My Blog ","email/welcome_subscriber",subscribed.email,subscriber=subscriber)
+    subscribed = Post.query.all()
+    post = Post.query.all()
+    return render_template('index.html',subscribed=subscribed,subscribers=subscribers, post=post)

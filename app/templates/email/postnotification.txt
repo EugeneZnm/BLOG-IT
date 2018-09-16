@@ -1,0 +1,2 @@
+Hello {{subscribers.username}}
+Our latest blog post: {{post.header}}. Enjoy your reading.
