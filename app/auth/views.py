@@ -2,7 +2,7 @@ from flask import render_template, url_for, redirect, request, flash
 from . import auth
 from flask_login import login_user, login_required, logout_user
 # imoort user model
-from ..models import User
+from ..models import User, Post
 from .forms import RegistrationForm, LoginForm
 from .. import db
 # from ..email import mail_message
@@ -63,3 +63,18 @@ def logout():
     """
     logout_user()
     return redirect(url_for("main.index"))
+
+
+# deletion of blog post
+@auth.route('/delete/<id>')
+@login_required
+def deletepost(id):
+
+    """
+     function to delete our blog post
+    """
+    post = Post.query.filter_by(id=id).first()
+
+    post.delete_post()
+
+    return redirect(url_for('main.index'))

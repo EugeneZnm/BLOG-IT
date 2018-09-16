@@ -39,7 +39,7 @@ def post():
 
     subscribers = Subscriber.query.all()
     for email in subscribers:
-        mail_message("Hey Welcome To My Blog ","email/welcome_post",email.email,subscribers=subscribers)
+        mail_message("New Blog Post from Codex ","email/postnotification",email.email,subscribers=subscribers)
     
     return render_template('blog-post.html', posts=posts, postit=postit)
 
@@ -111,15 +111,22 @@ def comments(id):
     return render_template('comments.html', comment=comment, comment_is=comment_is, postit=postit)
 
 
-# reader subscription
-@main.route('/', methods=['GET','POST'])
+# reader subscription form
+@main.route('/subscribed', methods=['GET','POST'])
 def subscriber():
-    subscribed=SubscriptionForm()
+    """
+     function to subscribe readers to blog
+    """
+    subscribed = SubscriptionForm()
     if subscribed.validate_on_submit():
-        subscribers= Subscriber(email=subscribed.email.data,title = subscribed.title.data)
+        subscribers = Subscriber(email=subscribed.email.data,username = subscribed.username.data)
         db.session.add(subscribers)
         db.session.commit()
-        mail_message("Hey Welcome To My Blog ","email/welcome_subscriber",subscribed.email,subscriber=subscriber)
-    subscribed = Post.query.all()
+        mail_message("Welcome To Codex ","email/welcome-subscriber",subscribed.email,subscriber=subscriber)
+        return redirect(url_for('main.index'))
+    subscribers = Post.query.all()
     post = Post.query.all()
-    return render_template('index.html',subscribed=subscribed,subscribers=subscribers, post=post)
+
+    return render_template('subscribed.html',subscribed=subscribed, subscribers=subscribers, post=post)
+
+

@@ -7,10 +7,12 @@ class Config:
 
     """
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://eugene:necromancer@localhost/blog'
+    # csrf secret key
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
 
+    # simplemde configurations
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CON = True
 
@@ -28,6 +30,7 @@ class ProdConfig(Config):
     """
     pass
 
+
 class TestConfig(Config):
     """
     tests configuration class
@@ -41,7 +44,8 @@ class DevConfig(Config):
     """
     DEBUG = True
 
-config_options={
+
+config_options = {
     'development': DevConfig,
     'production': ProdConfig,
     'test': TestConfig
