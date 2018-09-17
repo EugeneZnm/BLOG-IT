@@ -1,29 +1,27 @@
 import unittest
-
-from sqlalchemy.exc import Error
-
-from app import Error
-from app.models import User
+from app.models import Pitches, User
 
 
-class UserModelTest(unittest.TestCase):
+class PostModelTest(unittest.TestCase):
+
     def setUp(self):
-        self.new_user = User(username = 'leaps',password = '123', email = 'eugenenzioki@gmail.com')
+        self.user_eugene = User(username='leaps', email='eugenenzioki@gmail.com',password='123', )
+        self.new_post = Post(header='What is Lorem Ipsum?', post='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum', category='lifestyle', posts=self.user_eugene)
 
-    # user saving
-    def save_user(self):
-        db.session.add(self.new_user)
-        db.session.commit()
+    def test_instance(self):
+        self.assertEqual(self.new_post.header, 'What is Lorem Ipsum?')
+        self.assertEqual(self.new_post, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum')
+        self.assertEqual(self.new_post.category, 'lifestyle')
 
-    # password setting test
-    def test_password_setter(self):
-        self.assertTrue(self.new_user.pass_secure is not None)
+    def test_save_post(self):
+        self.new_post.save_post()
+        self.assertTrue(len(Post.query.all()) > 0)
 
-    # raising error when wrong password is used
-    def test_no_access_password(self):
-        with self.assertRaises(AttributeError):
-            self.new_user.password
+    def test_get_post_by_id(self):
+        self.new_post.save_post()
+        got_post = Post.get_post(1)
+        self.assertTrue(len(got_post) > 0)
 
-    # verifying password
-    def test_password_verification(self):
-        self.assertTrue(self.new_user.verify_password('123'))
+    def test_delete_post(self):
+        self.new_post.delete_post()
+        self.assertTrue(len(Post.query.id()) > 0)
