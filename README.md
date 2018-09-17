@@ -20,7 +20,7 @@ A personal blogging website where you can create and share your opinions and oth
   + [x] In your models, implement at least 1 one-many relationship.
   + [x] Your project should have a user model.
   + [x] Your project should have a comment model.
-  + [ ] Your project should have a profile page
+  + [x] Your project should have a profile page
   + [ ] Your project should implement Ajax functionality.
 
 ## Installation
