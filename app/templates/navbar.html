@@ -36,6 +36,9 @@
           <li class="nav-item active"><a class="nav-link" href="{{url_for('auth.logout')}}">Sign Out</a></li>
           {% else %}
           &nbsp;
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.profile',uname=current_user.username)}}">BLOGER PROFILE</a></li>
+          &nbsp;
           <li class="nav-item active"><a class="nav-link" href="{{url_for('auth.login')}}">ADMIN</a></li>
           {%endif%}
         </ul>

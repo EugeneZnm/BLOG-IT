@@ -28,9 +28,11 @@
             <div class="card-body" style="">
                 <h5 class="card-header mb-1"style="width:700px; background-color: #C4B088; height: 50px;">By: {{comm.name}}</h5>
                 <h6 class="card-header"style="width:700px; background-color: #D8A765;">Comment: {{comm.comment}}</h6>
+                {% if current_user.is_authenticated %}
                 <div class="col-md-6 card-footer">
                     <p style="text-align: center;"><a href="/deletes/{{comment.id}}"><button class="btn btn-danger">Delete comment</button></a></p>
                 </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

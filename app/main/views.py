@@ -1,12 +1,13 @@
 import markdown2
-from flask import abort, flash, redirect, render_template, request, url_for
+from flask import abort, flash, redirect, render_template, request, url_for,abort
 from flask_login import current_user, login_required
 
 from . import main
-from .. import db
+from .. import db, photos
 from ..email import mail_message
-from ..models import Comments, Post, Subscriber
-from .forms import BlogForm, CommentForm, SubscriptionForm
+from ..models import Comments, Post, Subscriber, User
+from .forms import BlogForm, CommentForm, SubscriptionForm, UpdateProfile
+from app.main.forms import UpdateProfile
 
 
 @main.route('/', methods=['GET','POST'])
@@ -152,7 +153,7 @@ def deletecomment(id):
     """
      function to delete our comment
     """
-    comment = Comment.query.filter_by(id=id).first()
+    comment = Comments.query.filter_by(id=id).first()
 
     comment.delete_comments()
     return redirect(url_for('main.index'))    
