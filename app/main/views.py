@@ -144,6 +144,19 @@ def deletepost(id):
     post.delete_post()
     return redirect(url_for('main.index'))
 
+
+# deletion of blog post
+@main.route('/deletes/<id>')
+def deletecomment(id):
+
+    """
+     function to delete our comment
+    """
+    comment = Comment.query.filter_by(id=id).first()
+
+    comment.delete_comments()
+    return redirect(url_for('main.index'))    
+
 @main.route('/posts/<int:id>', methods=['GET', 'POST'])
 def single_pitch(id):
     view = Post.query.filter_by(id=id)
