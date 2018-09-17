@@ -1,34 +1,27 @@
 # BLOG-IT
 A personal blogging website where you can create and share your opinions and other users can read and comment on them.
 
-A flask application allowing user to create a create pitches of various categories when signed in with the adde ability to view other users's pitches, vote on them and comment on them.
-
 ## Built by [EUGENE NZIOKI](https://github.com/EugeneZnm)
-
-## Description
-
-A news aggregator showing news articles from various publishers; with users being able to select a publisher, view articles from them along with their image, description and time of creation.
 
 ## User Requirements
 
- 1. Your users should be able to see the pitches other people have posted
- 2. Your users should be able to vote on the pitch they liked and give it a downvote or upvote.
- 3. The user should be signed in for to leave a comment
- 4. The user should also receive a welcoming email once they sign up
- 5. User should view the pitches created in their profile page.
- 6. Users should comment on the different pitches and leave feedback.
- 7. Users should submit a pitch in any category.
- 8. Users should view different pitch categories
+ 1. As a user, I would like to view the blog posts submitted
+ 2. As a user, I would like to comment on blog posts
+ 3. As a user, I would like to view the most recent posts
+ 4. As a user, I would like to alerted when a new post is made by joining a subscription.
+ 5. As a writer, I would like to sign in to the blog.
+ 6. As a writer, I would also like to create a blog from the application.
+ 7. As a writer, I would like to delete comments that I find insulting or degrading.
+ 8. As a writer, I would like to update or delete blogs I have created.
 
 ## Features
 
-  -[x] Your project must have a user model.
-  -[x] In your models, implement at least 1 one-many relationship.
-  -[x] Your project should have a comment model.
-  -[x] Your project should have a profile page.
-  -[x] Your project should follow the proper folder structure.
-  -[x] Your project should have a functioning authentication system.
-  -[x] Your project should contain migration files for the different model structure.
+  + [x] Your project should have a functioning authentication system
+  + [x] In your models, implement at least 1 one-many relationship.
+  + [x] Your project should have a user model.
+  + [x] Your project should have a comment model.
+  + [ ] Your project should have a profile page
+  + [ ] Your project should implement Ajax functionality.
 
 ## Installation
 
