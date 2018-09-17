@@ -24,6 +24,8 @@ class User(UserMixin, db.Model):
     post = db.relationship('Post', backref='users', lazy='dynamic')
     comment = db.relationship('Comments', backref='users', lazy='dynamic')
     pass_secure = db.Column(db.String(255))
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
 
     # call  back function retrieving writer id
     @login_manager.user_loader
