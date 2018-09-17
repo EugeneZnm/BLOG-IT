@@ -5,7 +5,7 @@
 <body style="background-color: #deddd9; ">
 <div class="container">
     {% for post in all %}
-        <div class="card mb-3" style="background-color: #f4a460;">
+        <div class="card mb-3" style="background-color: #f4a460;width: 800px;">
             <div class="card-body">
                 <div class="card-header">
                     <h2>Pitch: {{post.title}}</h2><br>
@@ -19,7 +19,7 @@
     {% endfor %}
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" style="width: 800px;">
     <div>
         {% for comm in comment_is %}
         <div class="container-fluid card mb-2" style="width: 750px; background-color: #e4dcb3;">
@@ -35,6 +35,6 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
+
 </body>

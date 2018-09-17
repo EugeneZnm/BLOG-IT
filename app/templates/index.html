@@ -2,40 +2,43 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
     {% block content %}
-<body style="background-color: #f5f5dc;">
-    <h2 style="text-align: center; font-weight: bold; text">MOMENT OF TRUTH</h2>
+<body style="background-color: #7F7E60;">
+    <div class="card" style="margin-bottom: 15px; background-color: #93B9C9;">
+        <h2 style="text-align: center; font-weight: bold; text">WELCOME TO CODEX</h2>
+    </div>
        {% for post in all %}
         <div style="display:inline-block; margin-left: 2em;">
             <div class="card mb-2" style="width: 300px;">
-                    <div class="card-header">
+                <div class="card-header" style="background-color: #f4a460;">
                         <span style="text-size: 50px; font-weight: 600;">{{post.header}}</span></br><br>
                         <h6 class="card-subtitle">Category: {{post.category}}</h6>
                     </div>
-                    <div class="card-body">
-                    <div class="card-text">
-                        <h5>{{post.post|truncate(150)}}</h5>
+                    <div class="card-body" style="background-color: #C8964B;">
+                        <div class="card-text">
+                            <h5>{{post.post|truncate(150)}}</h5>
+                        </div>
+                        <div class="card-text">
+                            <span style="text-size: 10px;"><em>Posted on:{{post.time}}</em></span>
+                        </div>
+                    </div> 
+                    <div class="card-footer row">
+                        <div class="col-md-6">
+                            <p style="text-align: center;"><a href="/posts/{{post.id}}"><button class="btn btn-success">Read More</button></a></p>
+                        </div>
+                        {% if current_user.is_authenticated %}
+                        <div class="col-md-6">
+                            <p style="text-align: center;"><a href="/delete/{{post.id}}"><button class="btn btn-danger">Delete Post</button></a></p>
+                        </div>
+                        {% endif %}
                     </div>
-                    <div class="card-text">
-                        <span style="text-size: 10px;"><em>Posted on:{{post.time}}</em></span>
-                    </div>
-                    </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p style="text-align: center;"><a href="/comments/{{post.id}}"><button class="btn btn-success">Read More</button></a></p>
-                    </div>
-                    {% if current_user.is_authenticated %}
-                    <div class="col-md-6">
-                        <p style="text-align: center;"><a href="/delete/{{post.id}}"><button class="btn btn-danger">Delete Post</button></a></p>
-                    </div>
-                    {%endif%}
-                </div>
+                </div>              
             </div>
         </div>
         {% endfor %}
         <div>
             <div class="jumbotron">
-                <div style="text-align: center;">
-                    <h2 >SUBSCRIBE TO CODEX</h2>
+                <div class="card" style="text-align: center;margin-bottom:1em; width: 400px; margin-left: 28em; background-color: #93B9C9; font-weight: 700;">
+                    <h4><em>SUBSCRIBE TO CODEX</em></h4>
                 </div>
                 <div class="container-fluid" style="width: 500px; background-color: #aaaa7c;">
                     {{ wtf.quick_form(subscribed) }}

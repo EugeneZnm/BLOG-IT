@@ -144,6 +144,19 @@ def deletepost(id):
     post.delete_post()
     return redirect(url_for('main.index'))
 
+@main.route('/posts/<int:id>', methods=['GET', 'POST'])
+def single_pitch(id):
+    view = Post.query.filter_by(id=id)
+
+    comment = CommentForm()
+    comment_is = Comments.query.filter_by(post_id=id)
+    if comment.validate_on_submit():
+        comments = Comments(comment=comment.comment.data, post_id=id, name=comment.name.data)
+        comments.save_comments()
+   
+    return render_template('singleblog.html', comment=comment, comment_is=comment_is,view=view)
+
+
 # # search function
 # @app.route('/results')
 # def search_results(search):
